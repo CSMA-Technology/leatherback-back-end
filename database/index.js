@@ -38,23 +38,23 @@ async function addDoc() {
       username: 'trkc'
     }
   });
-  console.log('new doc with id: ' + res.id);
   return res.id;
 }
 
 async function getDoc(id) {
   const user = await db.collection('users').doc(id).get();
+  return user;
+}
 
+async function start() {
+  const id = await addDoc();
+  console.log('new doc with id: ' + id);
+  const user = await getDoc(id);
   if (!user.exists) {
     console.log('no bueno');
   } else {
     console.log('new user data: ', user.data());
   }
-}
-
-async function start() {
-  const id = await addDoc();
-  getDoc(id);
 }
 
 start();
